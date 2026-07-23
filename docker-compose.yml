@@ -1,0 +1,10 @@
+services:
+  portal-atendimento:
+    image: portal-atendimento:local
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: portal-atendimento
+    ports:
+      - "8081:80"
+    restart: unless-stopped

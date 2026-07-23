@@ -31,6 +31,14 @@ npm run build
 
 Os arquivos estáticos serão gerados em `dist/` e podem ser publicados em qualquer servidor HTTP, como Nginx, GitHub Pages, GitLab Pages ou IIS.
 
+## Docker Compose
+
+```bash
+docker compose up --build
+```
+
+O portal ficará disponível em `http://localhost:8081`. A imagem usa build multi-stage com Node para gerar `dist/` e Nginx para servir os arquivos estáticos com fallback para rotas SPA.
+
 ## Verificação
 
 ```bash
