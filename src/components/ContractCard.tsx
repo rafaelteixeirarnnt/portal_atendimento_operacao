@@ -29,13 +29,13 @@ export const ContractCard = ({ contract, onOpen }: ContractCardProps) => {
           )}
         >
           <CardHeader className="gap-5">
-            <div className={cn("flex min-h-24 items-start justify-between gap-4", hasBrandLogo && "justify-end")}>
+            <div className={cn("flex min-h-24 items-start justify-between gap-4", hasBrandLogo && "justify-end", isSesMa && "justify-center")}>
               <span
                 className={cn(
                   "relative inline-flex h-24 w-36 shrink-0 items-center justify-center overflow-hidden rounded-b-[28px] rounded-t-lg border border-[#005243]/15 bg-[#002747]/5 px-4 shadow-inner transition-colors group-hover:border-[#36FFC0]/40 group-hover:bg-white dark:bg-white/90",
                   hasBrandLogo &&
                     "order-2 ml-auto h-20 w-44 border-transparent bg-transparent px-0 shadow-none group-hover:border-transparent group-hover:bg-transparent dark:bg-transparent",
-                  isSesMa && "-mr-2"
+                  isSesMa && "mx-auto"
                 )}
               >
                 {contract.brandLogo ? (
