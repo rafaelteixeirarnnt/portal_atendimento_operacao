@@ -17,6 +17,7 @@ export const ContractCard = ({ contract, onOpen }: ContractCardProps) => {
   const hasBrandLogo = Boolean(contract.brandLogo);
   const isFeaturedEinstein = contract.id === "einstein-ses-sp";
   const isSesMa = contract.id === "einstein-ses-ma";
+  const needsLightLogoPlate = contract.id === "einstein-ses-mt";
 
   return (
     <motion.div className="h-full" whileHover={{ y: -3 }} transition={{ duration: 0.16 }}>
@@ -56,7 +57,8 @@ export const ContractCard = ({ contract, onOpen }: ContractCardProps) => {
                   "relative inline-flex h-24 w-36 shrink-0 items-center justify-center overflow-hidden rounded-b-[28px] rounded-t-lg border border-[#005243]/15 bg-[#002747]/5 px-4 shadow-inner transition-colors group-hover:border-[#36FFC0]/40 group-hover:bg-white dark:bg-white/90",
                   hasBrandLogo &&
                     "order-2 ml-auto h-20 w-44 border-transparent bg-transparent px-0 shadow-none group-hover:border-transparent group-hover:bg-transparent dark:bg-transparent",
-                  isSesMa && "ml-auto mr-0 h-24 w-56"
+                  isSesMa && "ml-auto mr-0 h-24 w-56",
+                  needsLightLogoPlate && "rounded-md bg-white px-3 group-hover:bg-white dark:bg-white"
                 )}
               >
                 {contract.brandLogo ? (

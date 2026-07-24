@@ -68,7 +68,7 @@ export const setLastContract = (contractId: string, state?: BrazilianState, stor
   );
 
 export const setSelectedState = (selectedState: BrazilianState, storage?: Storage): LocalPreferences =>
-  writePreferences((current) => ({ ...current, selectedState }), storage);
+  writePreferences((current) => ({ theme: current.theme, selectedState, recentServices: [] }), storage);
 
 export const addRecentService = (
   recentService: Omit<RecentService, "usedAt">,

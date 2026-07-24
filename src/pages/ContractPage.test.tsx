@@ -1,4 +1,4 @@
-import { render, screen } from "@testing-library/react";
+import { render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import { App } from "@/App";
@@ -62,7 +62,7 @@ describe("ContractPage", () => {
   });
 
   it("returns to the portal when the state changes", async () => {
-    window.history.pushState({}, "", "/#/contracts/sms-sp");
+    window.history.pushState({}, "", "/contracts/einstein-ses-sp?origem=atalho#/contracts/sms-sp?selecionarCliente=1");
 
     render(<App />);
 
@@ -70,7 +70,23 @@ describe("ContractPage", () => {
     await userEvent.click(screen.getByRole("button", { name: "Maranhão" }));
 
     expect(window.location.pathname).toBe("/");
+    expect(window.location.search).toBe("");
+    expect(window.location.hash).toBe("#/");
     expect(screen.getByText("SES-MA")).toBeInTheDocument();
     expect(screen.queryByText("SMS-SP")).not.toBeInTheDocument();
+  });
+
+  it("returns to the portal when the Liberty logo is clicked", async () => {
+    window.history.pushState({}, "", "/contracts/einstein-ses-sp?origem=atalho#/contracts/sms-sp");
+
+    render(<App />);
+
+    await userEvent.click(screen.getByRole("link", { name: "Liberty health - Portal de Atendimento" }));
+
+    await waitFor(() => expect(window.location.hash).toBe("#/?selecionarCliente=1"));
+    expect(window.location.pathname).toBe("/");
+    expect(window.location.search).toBe("");
+    expect(screen.getByText("SMS-SP")).toBeInTheDocument();
+    expect(screen.getByText("Einstein SES-SP")).toBeInTheDocument();
   });
 });

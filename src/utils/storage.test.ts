@@ -38,8 +38,14 @@ describe("preferences storage", () => {
   it("persists selected state and ignores invalid saved state values", () => {
     const storage = createMemoryStorage();
 
+    setLastContract("sms-sp", "SP", storage);
+    addRecentService({ contractId: "sms-sp", serviceId: "incident" }, storage);
     setSelectedState("SP", storage);
-    expect(readPreferences(storage).selectedState).toBe("SP");
+    const selectedPreferences = readPreferences(storage);
+    expect(selectedPreferences.selectedState).toBe("SP");
+    expect(selectedPreferences.lastContractId).toBeUndefined();
+    expect(selectedPreferences.lastContractByState).toBeUndefined();
+    expect(selectedPreferences.recentServices).toEqual([]);
 
     storage.setItem(
       "liberty.portal-atendimento.preferences.v1",

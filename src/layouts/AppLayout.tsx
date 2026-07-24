@@ -4,6 +4,7 @@ import { Footer } from "@/components/Footer";
 import { Header } from "@/components/Header";
 import { StateSelectionModal } from "@/components/StateSelectionModal";
 import { useLocalPreferences } from "@/hooks/useLocalPreferences";
+import { replaceWithHashRoute } from "@/utils/navigation";
 
 export const AppLayout = () => {
   const navigate = useNavigate();
@@ -30,7 +31,8 @@ export const AppLayout = () => {
         onSelectState={(state) => {
           preferences.updateSelectedState(state);
           setIsStateSelectorOpen(false);
-          navigate("/");
+          replaceWithHashRoute("/");
+          navigate("/", { replace: true });
         }}
       />
     </div>
