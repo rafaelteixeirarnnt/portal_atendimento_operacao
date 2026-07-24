@@ -13,7 +13,7 @@ export const Header = ({ preferences, onOpenStateSelector }: HeaderProps) => (
     <div className="container flex min-h-24 items-center justify-between gap-4 py-4">
       <a
         href="/"
-        className="inline-flex w-fit items-center justify-center rounded-md transition-transform hover:-translate-y-0.5"
+        className="inline-flex w-fit items-center justify-center rounded-md"
         aria-label="Liberty health - Portal de Atendimento"
       >
         <img

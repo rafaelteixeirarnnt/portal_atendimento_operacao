@@ -34,6 +34,10 @@ export interface Contract {
   description: string;
   shortDescription: string;
   icon: string;
+  brandLogo?: {
+    src: string;
+    alt: string;
+  };
   state: BrazilianState;
   system?: string;
   categories: Category[];

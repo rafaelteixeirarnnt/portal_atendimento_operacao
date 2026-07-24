@@ -127,6 +127,10 @@ export const contracts: Contract[] = [
     description: "Contrato da Secretaria Municipal de Saúde de São Paulo.",
     shortDescription: "Canais de atendimento do contrato SMS-SP.",
     icon: "Building2",
+    brandLogo: {
+      src: "/contracts/sms-sp-horizontal.png",
+      alt: "Prefeitura de São Paulo"
+    },
     state: "SP",
     system: "Sustentação N2",
     categories: [
@@ -188,7 +192,25 @@ export const contracts: Contract[] = [
       }
     ]
   },
-  createEinsteinContract("einstein-ses-sp", "Einstein SES-SP", "SP", "São Paulo"),
-  createEinsteinContract("einstein-ses-ma", "SES-MA", "MA", "Maranhão"),
-  createEinsteinContract("einstein-ses-mt", "Einstein SES-MT", "MT", "Mato Grosso")
+  {
+    ...createEinsteinContract("einstein-ses-sp", "Einstein SES-SP", "SP", "São Paulo"),
+    brandLogo: {
+      src: "/contracts/einstein-horizontal.png",
+      alt: "Einstein Hospital Israelita"
+    }
+  },
+  {
+    ...createEinsteinContract("einstein-ses-ma", "SES-MA", "MA", "Maranhão"),
+    brandLogo: {
+      src: "/contracts/ses-ma-horizontal.png",
+      alt: "Governo do Maranhão"
+    }
+  },
+  {
+    ...createEinsteinContract("einstein-ses-mt", "Einstein SES-MT", "MT", "Mato Grosso"),
+    brandLogo: {
+      src: "/contracts/ses-mt-horizontal.png",
+      alt: "SES Secretaria de Estado de Saúde - Governo de Mato Grosso"
+    }
+  }
 ];

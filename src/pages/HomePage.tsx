@@ -21,27 +21,29 @@ export const HomePage = () => {
     <div className="grid gap-10">
       <section className="max-w-3xl">
         <div>
-          <h1 className="text-4xl font-bold tracking-normal md:text-5xl">Portal de Atendimento</h1>
+          <h1 className="text-4xl font-bold tracking-normal md:text-5xl">Encontre o atendimento certo para o seu contrato</h1>
           <p className="mt-4 text-lg leading-8 text-muted-foreground">
-            Escolha o contrato para acessar os canais corretos de atendimento.
+            Selecione sua operação ou pesquise pelo serviço que você precisa. O portal direciona você para o canal correto de atendimento.
           </p>
         </div>
       </section>
 
-      <section aria-label="Pesquisa de contratos e serviços">
-        <SearchBar value={query} onChange={setQuery} placeholder="Buscar por contrato ou serviço (ex.: prescrição, senha, BI)" />
-      </section>
+      <section aria-label="Contratos disponíveis">
+        <div aria-label="Pesquisa de contratos e serviços">
+          <SearchBar value={query} onChange={setQuery} placeholder="Buscar por contrato ou serviço (ex.: prescrição, senha, BI)" />
+        </div>
 
-      <section aria-label="Contratos" className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-        {results.length > 0 ? (
-          results.map(({ contract }) => (
-            <ContractCard key={contract.id} contract={contract} onOpen={rememberContract} />
-          ))
-        ) : (
-          <div className="sm:col-span-2 lg:col-span-3">
-            <EmptyState title="Nenhum resultado encontrado" description="Tente buscar por contrato, sistema, categoria, serviço ou palavra-chave." />
-          </div>
-        )}
+        <div aria-label="Contratos" className="mt-5 grid items-stretch gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          {results.length > 0 ? (
+            results.map(({ contract }) => (
+              <ContractCard key={contract.id} contract={contract} onOpen={rememberContract} />
+            ))
+          ) : (
+            <div className="sm:col-span-2 lg:col-span-3">
+              <EmptyState title="Nenhum resultado encontrado" description="Tente buscar por contrato, sistema, categoria, serviço ou palavra-chave." />
+            </div>
+          )}
+        </div>
       </section>
 
       {hasQuery && matchedServices.length > 0 ? (
