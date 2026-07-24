@@ -44,7 +44,9 @@ export const ContractCard = ({ contract, onOpen }: ContractCardProps) => {
                     alt={contract.brandLogo.alt}
                     className={cn(
                       "max-h-16 w-full object-contain drop-shadow-sm transition duration-300 group-hover:opacity-100 group-focus-visible:opacity-100",
-                      isFeaturedEinstein ? "opacity-70" : "opacity-65 grayscale saturate-50 group-hover:grayscale-0 group-hover:saturate-100 group-focus-visible:grayscale-0 group-focus-visible:saturate-100"
+                      isFeaturedEinstein
+                        ? "scale-95 opacity-85 group-hover:scale-105 group-focus-visible:scale-105"
+                        : "opacity-65 grayscale saturate-50 group-hover:grayscale-0 group-hover:saturate-100 group-focus-visible:grayscale-0 group-focus-visible:saturate-100"
                     )}
                   />
                 ) : (
