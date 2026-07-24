@@ -13,8 +13,11 @@ describe("HomePage", () => {
 
     render(<App />);
 
-    const stateDialog = screen.getByRole("dialog", { name: "Selecione seu estado" });
+    const stateDialog = screen.getByRole("dialog", { name: "Escolha o estado de atendimento" });
     expect(stateDialog).toBeInTheDocument();
+    expect(within(stateDialog).getByText("Use esta escolha para ver apenas os sistemas da sua operação.")).toBeInTheDocument();
+    expect(within(stateDialog).getByText("Depois, se precisar, você pode trocar no topo da página.")).toBeInTheDocument();
+    expect(within(stateDialog).queryByText(/Vamos mostrar apenas os sistemas disponíveis/)).not.toBeInTheDocument();
     expect(within(stateDialog).queryByText("SMS-SP e Einstein SES-SP")).not.toBeInTheDocument();
     expect(within(stateDialog).queryByText("SES-MA")).not.toBeInTheDocument();
     expect(within(stateDialog).queryByText("Einstein SES-MT")).not.toBeInTheDocument();
@@ -35,7 +38,7 @@ describe("HomePage", () => {
 
     render(<App />);
 
-    expect(screen.queryByRole("dialog", { name: "Selecione seu estado" })).not.toBeInTheDocument();
+    expect(screen.queryByRole("dialog", { name: "Escolha o estado de atendimento" })).not.toBeInTheDocument();
     expect(screen.getByText("SES-MA")).toBeInTheDocument();
     expect(screen.queryByText("SMS-SP")).not.toBeInTheDocument();
   });

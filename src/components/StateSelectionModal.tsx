@@ -25,9 +25,10 @@ export const StateSelectionModal = ({
   <Dialog open={open} onOpenChange={onOpenChange}>
     <DialogContent showCloseButton={Boolean(selectedState)}>
       <DialogHeader>
-        <DialogTitle>Selecione seu estado</DialogTitle>
-        <DialogDescription>
-          Vamos mostrar apenas os sistemas disponíveis para sua região. Você pode alterar essa escolha depois no topo da página.
+        <DialogTitle>Escolha o estado de atendimento</DialogTitle>
+        <DialogDescription className="grid gap-1">
+          <span>Use esta escolha para ver apenas os sistemas da sua operação.</span>
+          <span>Depois, se precisar, você pode trocar no topo da página.</span>
         </DialogDescription>
       </DialogHeader>
       <div className="grid gap-3 sm:grid-cols-3">
