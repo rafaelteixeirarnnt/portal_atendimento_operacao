@@ -10,7 +10,7 @@ export const BreadcrumbNav = ({ current }: BreadcrumbNavProps) => (
     <BreadcrumbList>
       <BreadcrumbItem>
         <Link className="rounded-sm hover:text-primary" to="/">
-          Portal
+          Início
         </Link>
       </BreadcrumbItem>
       <BreadcrumbSeparator />
