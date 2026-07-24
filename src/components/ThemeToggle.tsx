@@ -1,12 +1,5 @@
-import { Laptop, Moon, Sun } from "lucide-react";
+import { Moon, Sun } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuRadioGroup,
-  DropdownMenuRadioItem,
-  DropdownMenuTrigger
-} from "@/components/ui/dropdown-menu";
 import type { ThemePreference } from "@/types/contracts";
 
 interface ThemeToggleProps {
@@ -14,30 +7,21 @@ interface ThemeToggleProps {
   onThemeChange: (theme: ThemePreference) => void;
 }
 
-const themeLabels: Record<ThemePreference, string> = {
-  light: "Tema claro",
-  dark: "Tema escuro",
-  system: "Tema automático"
-};
-
 export const ThemeToggle = ({ theme, onThemeChange }: ThemeToggleProps) => {
-  const Icon = theme === "dark" ? Moon : theme === "light" ? Sun : Laptop;
+  const isDark = theme === "dark";
+  const nextTheme: ThemePreference = isDark ? "light" : "dark";
+  const Icon = isDark ? Sun : Moon;
 
   return (
-    <DropdownMenu>
-      <DropdownMenuTrigger asChild>
-        <Button variant="outline" className="px-3 sm:min-w-40 sm:justify-between" aria-label="Alterar tema">
-          <Icon data-icon="inline-start" aria-hidden="true" />
-          <span className="hidden sm:inline">{themeLabels[theme]}</span>
-        </Button>
-      </DropdownMenuTrigger>
-      <DropdownMenuContent align="end">
-        <DropdownMenuRadioGroup value={theme} onValueChange={(value) => onThemeChange(value as ThemePreference)}>
-          <DropdownMenuRadioItem value="light">Tema claro</DropdownMenuRadioItem>
-          <DropdownMenuRadioItem value="dark">Tema escuro</DropdownMenuRadioItem>
-          <DropdownMenuRadioItem value="system">Tema automático</DropdownMenuRadioItem>
-        </DropdownMenuRadioGroup>
-      </DropdownMenuContent>
-    </DropdownMenu>
+    <Button
+      variant="outline"
+      size="icon"
+      className="rounded-full border-white/35 bg-white/10 text-white shadow-none backdrop-blur hover:bg-white/20 hover:text-white"
+      aria-label={isDark ? "Ativar tema claro" : "Ativar tema escuro"}
+      title={isDark ? "Ativar tema claro" : "Ativar tema escuro"}
+      onClick={() => onThemeChange(nextTheme)}
+    >
+      <Icon aria-hidden="true" />
+    </Button>
   );
 };
