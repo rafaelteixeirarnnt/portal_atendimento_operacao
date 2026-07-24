@@ -10,7 +10,8 @@ interface HeaderProps {
 }
 
 export const Header = ({ preferences, onOpenStateSelector }: HeaderProps) => (
-  <header className="border-b border-emerald-950/20 bg-[#073f30] text-white shadow-sm">
+  <header className="border-b border-[#B0FF8C]/60 bg-white text-[#002747] shadow-sm">
+    <div className="h-1.5 bg-gradient-to-r from-[#36FFC0] via-[#005243] to-[#002747]" aria-hidden="true" />
     <div className="container flex min-h-20 items-center justify-between gap-4 py-3">
       <a
         href="/"
@@ -27,7 +28,7 @@ export const Header = ({ preferences, onOpenStateSelector }: HeaderProps) => (
         <Button
           type="button"
           variant="outline"
-          className="rounded-full border-white/35 bg-white/10 px-4 text-xs font-bold uppercase tracking-wide text-white shadow-none backdrop-blur hover:bg-white/20 hover:text-white"
+          className="rounded-full border-[#005243]/25 bg-[#005243] px-4 text-xs font-bold uppercase tracking-wide text-white shadow-none hover:bg-[#002747] hover:text-white"
           onClick={onOpenStateSelector}
         >
           <MapPin aria-hidden="true" />

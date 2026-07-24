@@ -16,7 +16,7 @@ export const ThemeToggle = ({ theme, onThemeChange }: ThemeToggleProps) => {
     <Button
       variant="outline"
       size="icon"
-      className="rounded-full border-white/35 bg-white/10 text-white shadow-none backdrop-blur hover:bg-white/20 hover:text-white"
+      className="rounded-full border-[#005243]/25 bg-[#002747] text-[#36FFC0] shadow-none hover:bg-[#005243] hover:text-[#B0FF8C]"
       aria-label={isDark ? "Ativar tema claro" : "Ativar tema escuro"}
       title={isDark ? "Ativar tema claro" : "Ativar tema escuro"}
       onClick={() => onThemeChange(nextTheme)}
