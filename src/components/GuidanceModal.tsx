@@ -9,7 +9,7 @@ import {
   DialogTitle
 } from "@/components/ui/dialog";
 import type { Contract, Service } from "@/types/contracts";
-import { navigateInCurrentTab } from "@/utils/navigation";
+import { openInNewTab } from "@/utils/navigation";
 
 interface GuidanceModalProps {
   contract?: Contract;
@@ -28,7 +28,7 @@ export const GuidanceModal = ({ contract, service, open, onOpenChange, onContinu
     }
 
     onContinue(contract.id, service.id);
-    navigateInCurrentTab(service.url);
+    openInNewTab(service.url);
     onOpenChange(false);
   };
 

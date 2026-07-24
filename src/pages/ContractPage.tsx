@@ -1,4 +1,5 @@
 import { useEffect } from "react";
+import { ListTodo } from "lucide-react";
 import { useOutletContext, useParams } from "react-router-dom";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
@@ -13,7 +14,9 @@ import { cn } from "@/lib/utils";
 import type { useLocalPreferences } from "@/hooks/useLocalPreferences";
 import { useServiceSearch } from "@/hooks/useSearch";
 import { findContractById, getServiceCount } from "@/utils/contracts";
-import type { Contract } from "@/types/contracts";
+import type { Contract, Service } from "@/types/contracts";
+
+const OPEN_REQUESTS_SERVICE_ID = "requests";
 
 export const ContractPage = () => {
   const { contractId } = useParams();
@@ -38,6 +41,8 @@ const ContractDetail = ({ contract, preferences }: ContractDetailProps) => {
   const search = useServiceSearch(contract);
   const { rememberContract, rememberService } = preferences;
   const isSesMa = contract.id === "einstein-ses-ma";
+  const openRequestsService = findServiceById(contract, OPEN_REQUESTS_SERVICE_ID);
+  const categoryResults = search.results.filter((result) => result.service.id !== OPEN_REQUESTS_SERVICE_ID);
 
   useEffect(() => {
     rememberContract(contract.id);
@@ -87,11 +92,15 @@ const ContractDetail = ({ contract, preferences }: ContractDetailProps) => {
 
       <SearchBar value={search.query} onChange={search.setQuery} placeholder="Filtrar serviços deste contrato" />
 
-      {search.results.length > 0 ? (
+      {openRequestsService ? (
+        <OpenRequestsShortcut contract={contract} service={openRequestsService} onOpenService={rememberService} />
+      ) : null}
+
+      {categoryResults.length > 0 ? (
         <CategoryAccordion
           contract={contract}
           categories={contract.categories}
-          visibleResults={search.results}
+          visibleResults={categoryResults}
           onRequiresGuidance={guidance.openGuidance}
           onOpenService={rememberService}
         />
@@ -111,5 +120,61 @@ const ContractDetail = ({ contract, preferences }: ContractDetailProps) => {
         onContinue={rememberService}
       />
     </div>
+  );
+};
+
+const findServiceById = (contract: Contract, serviceId: string): Service | undefined => {
+  for (const category of contract.categories) {
+    const service = category.services.find((item) => item.id === serviceId);
+    if (service) {
+      return service;
+    }
+  }
+
+  return undefined;
+};
+
+interface OpenRequestsShortcutProps {
+  contract: Contract;
+  service: Service;
+  onOpenService: (contractId: string, serviceId: string) => void;
+}
+
+const OpenRequestsShortcut = ({ contract, service, onOpenService }: OpenRequestsShortcutProps) => {
+  const handleOpen = () => {
+    if (!service.url) {
+      return;
+    }
+
+    onOpenService(contract.id, service.id);
+    window.open(service.url, "_blank", "noopener,noreferrer");
+  };
+
+  return (
+    <section aria-label="Meus chamados" className="grid gap-3">
+      <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wide text-muted-foreground">
+        <span className="size-2 rounded-full bg-[#14B887]" aria-hidden="true" />
+        Meus chamados
+      </div>
+      <a
+        href={service.url}
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label={service.name}
+        className="group flex items-center gap-4 rounded-lg border border-[#14B887]/75 bg-[#14B887]/7 px-4 py-4 text-left transition-colors hover:bg-[#14B887]/12"
+        onClick={(event) => {
+          event.preventDefault();
+          handleOpen();
+        }}
+      >
+        <span className="inline-flex size-10 shrink-0 items-center justify-center rounded-md bg-[#14B887] text-white">
+          <ListTodo className="size-5" aria-hidden="true" />
+        </span>
+        <span className="min-w-0 flex-1">
+          <span className="block font-semibold text-foreground">{service.name}</span>
+          <span className="mt-1 block text-sm text-muted-foreground">{service.description}</span>
+        </span>
+      </a>
+    </section>
   );
 };
