@@ -1,11 +1,11 @@
 import { useMemo } from "react";
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { createHashRouter, RouterProvider } from "react-router-dom";
 import { AppLayout } from "@/layouts/AppLayout";
 import { ContractPage } from "@/pages/ContractPage";
 import { HomePage } from "@/pages/HomePage";
 
 const createRouter = () =>
-  createBrowserRouter([
+  createHashRouter([
     {
       path: "/",
       element: <AppLayout />,

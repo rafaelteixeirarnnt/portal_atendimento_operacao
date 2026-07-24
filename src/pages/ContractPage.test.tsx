@@ -13,7 +13,7 @@ describe("ContractPage", () => {
   });
 
   it("renders contract categories and services", async () => {
-    window.history.pushState({}, "", "/contracts/sms-sp");
+    window.history.pushState({}, "", "/#/contracts/sms-sp");
 
     render(<App />);
 
@@ -26,7 +26,7 @@ describe("ContractPage", () => {
   });
 
   it("uses the color Einstein logo on the contract detail header", () => {
-    window.history.pushState({}, "", "/contracts/einstein-ses-sp");
+    window.history.pushState({}, "", "/#/contracts/einstein-ses-sp");
 
     render(<App />);
 
@@ -37,7 +37,7 @@ describe("ContractPage", () => {
   });
 
   it("opens guidance before redirecting incident services", async () => {
-    window.history.pushState({}, "", "/contracts/sms-sp");
+    window.history.pushState({}, "", "/#/contracts/sms-sp");
     const navigateSpy = vi.spyOn(navigation, "navigateInCurrentTab").mockImplementation(() => undefined);
 
     render(<App />);
@@ -54,7 +54,7 @@ describe("ContractPage", () => {
   });
 
   it("shows an empty state for missing contracts", () => {
-    window.history.pushState({}, "", "/contracts/inexistente");
+    window.history.pushState({}, "", "/#/contracts/inexistente");
 
     render(<App />);
 
@@ -62,7 +62,7 @@ describe("ContractPage", () => {
   });
 
   it("returns to the portal when the state changes", async () => {
-    window.history.pushState({}, "", "/contracts/sms-sp");
+    window.history.pushState({}, "", "/#/contracts/sms-sp");
 
     render(<App />);
 

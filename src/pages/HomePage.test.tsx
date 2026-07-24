@@ -63,7 +63,7 @@ describe("HomePage", () => {
     render(<App />);
 
     expect(await screen.findByRole("heading", { name: "SES-MA" })).toBeInTheDocument();
-    expect(window.location.pathname).toBe("/contracts/einstein-ses-ma");
+    expect(window.location.hash).toBe("#/contracts/einstein-ses-ma");
   });
 
   it("keeps the client selection visible when requested from the home link", () => {
@@ -76,13 +76,13 @@ describe("HomePage", () => {
         recentServices: []
       })
     );
-    window.history.pushState({}, "", "/?selecionarCliente=1");
+    window.history.pushState({}, "", "/#/?selecionarCliente=1");
 
     render(<App />);
 
     expect(screen.getByText("SES-MA")).toBeInTheDocument();
     expect(window.location.pathname).toBe("/");
-    expect(window.location.search).toBe("?selecionarCliente=1");
+    expect(window.location.hash).toBe("#/?selecionarCliente=1");
   });
 
   it("does not render the home search bar", () => {
