@@ -1,4 +1,4 @@
-import { render, screen } from "@testing-library/react";
+import { render, screen, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { beforeEach, describe, expect, it } from "vitest";
 import { App } from "@/App";
@@ -13,7 +13,11 @@ describe("HomePage", () => {
 
     render(<App />);
 
-    expect(screen.getByRole("dialog", { name: "Selecione seu estado" })).toBeInTheDocument();
+    const stateDialog = screen.getByRole("dialog", { name: "Selecione seu estado" });
+    expect(stateDialog).toBeInTheDocument();
+    expect(within(stateDialog).queryByText("SMS-SP e Einstein SES-SP")).not.toBeInTheDocument();
+    expect(within(stateDialog).queryByText("SES-MA")).not.toBeInTheDocument();
+    expect(within(stateDialog).queryByText("Einstein SES-MT")).not.toBeInTheDocument();
     await userEvent.click(screen.getByRole("button", { name: /São Paulo/ }));
 
     expect(screen.getByRole("heading", { name: "Portal de Atendimento" })).toBeInTheDocument();

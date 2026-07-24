@@ -1,4 +1,4 @@
-import { MapPin } from "lucide-react";
+import { StateShapeIcon } from "@/components/StateShapeIcon";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -37,14 +37,13 @@ export const StateSelectionModal = ({
             key={option.id}
             type="button"
             variant={selectedState === option.id ? "default" : "outline"}
-            className="h-auto flex-col items-start gap-2 p-4 text-left"
+            className="h-auto min-h-20 flex-col items-start gap-3 p-4 text-left"
             onClick={() => onSelectState(option.id)}
           >
             <span className="flex items-center gap-2 text-base font-semibold">
-              <MapPin aria-hidden="true" />
+              <StateShapeIcon state={option.id} className="size-7 shrink-0" aria-hidden="true" />
               {option.name}
             </span>
-            <span className="text-xs font-normal opacity-80">{option.description}</span>
           </Button>
         ))}
       </div>

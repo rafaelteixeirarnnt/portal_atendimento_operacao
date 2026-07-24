@@ -1,4 +1,4 @@
-import { MapPin } from "lucide-react";
+import { StateShapeIcon } from "@/components/StateShapeIcon";
 import { ThemeToggle } from "@/components/ThemeToggle";
 import { Button } from "@/components/ui/button";
 import { getStateName } from "@/data/states";
@@ -31,7 +31,9 @@ export const Header = ({ preferences, onOpenStateSelector }: HeaderProps) => (
           className="rounded-full border-[#005243]/25 bg-[#005243] px-4 text-xs font-bold uppercase tracking-wide text-white shadow-none hover:bg-[#002747] hover:text-white"
           onClick={onOpenStateSelector}
         >
-          <MapPin aria-hidden="true" />
+          {preferences.preferences.selectedState ? (
+            <StateShapeIcon state={preferences.preferences.selectedState} className="size-5" aria-hidden="true" />
+          ) : null}
           {preferences.preferences.selectedState
             ? getStateName(preferences.preferences.selectedState)
             : "Estado"}
