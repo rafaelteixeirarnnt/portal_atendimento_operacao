@@ -47,4 +47,17 @@ describe("ContractPage", () => {
 
     expect(screen.getByText("Contrato inexistente")).toBeInTheDocument();
   });
+
+  it("returns to the portal when the state changes", async () => {
+    window.history.pushState({}, "", "/contracts/sms-sp");
+
+    render(<App />);
+
+    await userEvent.click(screen.getByRole("button", { name: "São Paulo" }));
+    await userEvent.click(screen.getByRole("button", { name: "Maranhão" }));
+
+    expect(window.location.pathname).toBe("/");
+    expect(screen.getByText("SES-MA")).toBeInTheDocument();
+    expect(screen.queryByText("SMS-SP")).not.toBeInTheDocument();
+  });
 });
