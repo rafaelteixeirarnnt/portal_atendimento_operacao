@@ -19,4 +19,14 @@ describe("contract utilities", () => {
     expect(getContractsByState("MA").map((contract) => contract.name)).toEqual(["SES-MA"]);
     expect(getContractsByState("MT").map((contract) => contract.name)).toEqual(["Einstein SES-MT"]);
   });
+
+  it("declares logo variants for card and detail contexts", () => {
+    const brandedContracts = contracts.filter((contract) => contract.brandLogo);
+
+    expect(brandedContracts.length).toBeGreaterThan(0);
+    brandedContracts.forEach((contract) => {
+      expect(contract.brandLogo?.srcOnDark).toBeTruthy();
+      expect(contract.brandLogo?.srcOnLight).toBeTruthy();
+    });
+  });
 });

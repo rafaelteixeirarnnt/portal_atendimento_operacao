@@ -9,6 +9,7 @@ import { GuidanceModal } from "@/components/GuidanceModal";
 import { SearchBar } from "@/components/SearchBar";
 import { getIcon } from "@/components/icons";
 import { useGuidance } from "@/hooks/useGuidance";
+import { cn } from "@/lib/utils";
 import type { useLocalPreferences } from "@/hooks/useLocalPreferences";
 import { useServiceSearch } from "@/hooks/useSearch";
 import { findContractById, getServiceCount } from "@/utils/contracts";
@@ -47,8 +48,21 @@ const ContractDetail = ({ contract, preferences }: ContractDetailProps) => {
 
       <section className="grid gap-5">
         <div className="flex flex-col gap-5 md:flex-row md:items-center">
-          <span className="inline-flex size-16 items-center justify-center rounded-lg bg-accent text-primary">
-            <Icon aria-hidden="true" />
+          <span
+            className={cn(
+              "inline-flex shrink-0 items-center justify-center rounded-lg bg-accent text-primary",
+              contract.brandLogo ? "h-16 w-32 border border-border bg-white px-3 shadow-sm" : "size-16"
+            )}
+          >
+            {contract.brandLogo ? (
+              <img
+                src={contract.brandLogo.srcOnLight ?? contract.brandLogo.src}
+                alt={contract.brandLogo.alt}
+                className="max-h-12 w-full object-contain"
+              />
+            ) : (
+              <Icon aria-hidden="true" />
+            )}
           </span>
           <div className="min-w-0 flex-1">
             <div className="flex flex-wrap items-center gap-3">

@@ -40,7 +40,7 @@ export const ContractCard = ({ contract, onOpen }: ContractCardProps) => {
               >
                 {contract.brandLogo ? (
                   <img
-                    src={contract.brandLogo.src}
+                    src={contract.brandLogo.srcOnDark ?? contract.brandLogo.src}
                     alt={contract.brandLogo.alt}
                     className={cn(
                       "max-h-16 w-full object-contain drop-shadow-sm transition duration-300 group-hover:opacity-100 group-focus-visible:opacity-100",

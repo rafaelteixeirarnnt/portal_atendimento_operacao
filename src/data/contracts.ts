@@ -129,6 +129,8 @@ export const contracts: Contract[] = [
     icon: "Building2",
     brandLogo: {
       src: "/contracts/sms-sp-horizontal.png",
+      srcOnDark: "/contracts/sms-sp-horizontal.png",
+      srcOnLight: "/contracts/sms-sp-horizontal.png",
       alt: "Prefeitura de São Paulo"
     },
     state: "SP",
@@ -196,6 +198,8 @@ export const contracts: Contract[] = [
     ...createEinsteinContract("einstein-ses-sp", "Einstein SES-SP", "SP", "São Paulo"),
     brandLogo: {
       src: "/contracts/einstein-horizontal.png",
+      srcOnDark: "/contracts/einstein-horizontal.png",
+      srcOnLight: "/contracts/einstein-horizontal-color.png",
       alt: "Einstein Hospital Israelita"
     }
   },
@@ -203,6 +207,8 @@ export const contracts: Contract[] = [
     ...createEinsteinContract("einstein-ses-ma", "SES-MA", "MA", "Maranhão"),
     brandLogo: {
       src: "/contracts/ses-ma-horizontal.png",
+      srcOnDark: "/contracts/ses-ma-horizontal.png",
+      srcOnLight: "/contracts/ses-ma-horizontal.png",
       alt: "Governo do Maranhão"
     }
   },
@@ -210,6 +216,8 @@ export const contracts: Contract[] = [
     ...createEinsteinContract("einstein-ses-mt", "Einstein SES-MT", "MT", "Mato Grosso"),
     brandLogo: {
       src: "/contracts/ses-mt-horizontal.png",
+      srcOnDark: "/contracts/ses-mt-horizontal.png",
+      srcOnLight: "/contracts/ses-mt-horizontal.png",
       alt: "SES Secretaria de Estado de Saúde - Governo de Mato Grosso"
     }
   }
