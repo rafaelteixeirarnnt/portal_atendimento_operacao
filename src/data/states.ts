@@ -7,16 +7,16 @@ export interface StateOption {
 
 export const stateOptions: StateOption[] = [
   {
-    id: "SP",
-    name: "São Paulo"
-  },
-  {
     id: "MA",
     name: "Maranhão"
   },
   {
     id: "MT",
     name: "Mato Grosso"
+  },
+  {
+    id: "SP",
+    name: "São Paulo"
   }
 ];
 

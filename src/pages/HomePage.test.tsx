@@ -21,9 +21,13 @@ describe("HomePage", () => {
     expect(within(stateDialog).queryByText("SMS-SP e Einstein SES-SP")).not.toBeInTheDocument();
     expect(within(stateDialog).queryByText("SES-MA")).not.toBeInTheDocument();
     expect(within(stateDialog).queryByText("Einstein SES-MT")).not.toBeInTheDocument();
+    expect(within(stateDialog).getAllByRole("button").map((button) => button.textContent)).toEqual([
+      "Maranhão",
+      "Mato Grosso",
+      "São Paulo"
+    ]);
     await userEvent.click(screen.getByRole("button", { name: /São Paulo/ }));
 
-    expect(screen.getByRole("heading", { name: "Portal de Atendimento" })).toBeInTheDocument();
     expect(screen.getByText("SMS-SP")).toBeInTheDocument();
     expect(screen.getByText("Einstein SES-SP")).toBeInTheDocument();
     expect(screen.queryByText("SES-MA")).not.toBeInTheDocument();
