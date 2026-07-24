@@ -1,4 +1,3 @@
-import { StateShapeIcon } from "@/components/StateShapeIcon";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -37,13 +36,10 @@ export const StateSelectionModal = ({
             key={option.id}
             type="button"
             variant={selectedState === option.id ? "default" : "outline"}
-            className="h-auto min-h-20 flex-col items-start gap-3 p-4 text-left"
+            className="h-auto min-h-20 justify-center px-4 py-5 text-center text-base font-semibold"
             onClick={() => onSelectState(option.id)}
           >
-            <span className="flex items-center gap-2 text-base font-semibold">
-              <StateShapeIcon state={option.id} className="size-8 shrink-0 text-[#1f2933]" aria-hidden="true" />
-              {option.name}
-            </span>
+            {option.name}
           </Button>
         ))}
       </div>

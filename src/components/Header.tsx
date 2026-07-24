@@ -1,4 +1,3 @@
-import { StateShapeIcon } from "@/components/StateShapeIcon";
 import { ThemeToggle } from "@/components/ThemeToggle";
 import { Button } from "@/components/ui/button";
 import { getStateName } from "@/data/states";
@@ -10,9 +9,8 @@ interface HeaderProps {
 }
 
 export const Header = ({ preferences, onOpenStateSelector }: HeaderProps) => (
-  <header className="border-b border-[#B0FF8C]/60 bg-white text-[#002747] shadow-sm">
-    <div className="h-1.5 bg-gradient-to-r from-[#36FFC0] via-[#005243] to-[#002747]" aria-hidden="true" />
-    <div className="container flex min-h-20 items-center justify-between gap-4 py-3">
+  <header className="border-b border-[#36FFC0]/20 bg-[linear-gradient(110deg,#002747_0%,#005243_58%,#002747_100%)] text-white shadow-sm">
+    <div className="container flex min-h-24 items-center justify-between gap-4 py-4">
       <a
         href="/"
         className="inline-flex w-fit items-center justify-center rounded-md transition-transform hover:-translate-y-0.5"
@@ -31,9 +29,6 @@ export const Header = ({ preferences, onOpenStateSelector }: HeaderProps) => (
           className="rounded-full border-[#005243]/25 bg-[#005243] px-4 text-xs font-bold uppercase tracking-wide text-white shadow-none hover:bg-[#002747] hover:text-white"
           onClick={onOpenStateSelector}
         >
-          {preferences.preferences.selectedState ? (
-            <StateShapeIcon state={preferences.preferences.selectedState} className="size-5" aria-hidden="true" />
-          ) : null}
           {preferences.preferences.selectedState
             ? getStateName(preferences.preferences.selectedState)
             : "Estado"}
