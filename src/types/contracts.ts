@@ -66,6 +66,7 @@ export interface LocalPreferences {
   theme: ThemePreference;
   selectedState?: BrazilianState;
   lastContractId?: string;
+  lastContractByState?: Partial<Record<BrazilianState, string>>;
   recentServices: RecentService[];
 }
 

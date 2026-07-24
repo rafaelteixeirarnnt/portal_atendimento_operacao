@@ -47,7 +47,45 @@ describe("HomePage", () => {
     expect(screen.queryByText("SMS-SP")).not.toBeInTheDocument();
   });
 
-  it("shows service matches while typing", async () => {
+  it("restores the saved client for the selected state", async () => {
+    localStorage.setItem(
+      "liberty.portal-atendimento.preferences.v1",
+      JSON.stringify({
+        theme: "system",
+        selectedState: "MA",
+        lastContractId: "sms-sp",
+        lastContractByState: { MA: "einstein-ses-ma", SP: "sms-sp" },
+        recentServices: []
+      })
+    );
+    window.history.pushState({}, "", "/");
+
+    render(<App />);
+
+    expect(await screen.findByRole("heading", { name: "SES-MA" })).toBeInTheDocument();
+    expect(window.location.pathname).toBe("/contracts/einstein-ses-ma");
+  });
+
+  it("keeps the client selection visible when requested from the home link", () => {
+    localStorage.setItem(
+      "liberty.portal-atendimento.preferences.v1",
+      JSON.stringify({
+        theme: "system",
+        selectedState: "MA",
+        lastContractByState: { MA: "einstein-ses-ma" },
+        recentServices: []
+      })
+    );
+    window.history.pushState({}, "", "/?selecionarCliente=1");
+
+    render(<App />);
+
+    expect(screen.getByText("SES-MA")).toBeInTheDocument();
+    expect(window.location.pathname).toBe("/");
+    expect(window.location.search).toBe("?selecionarCliente=1");
+  });
+
+  it("does not render the home search bar", () => {
     localStorage.setItem(
       "liberty.portal-atendimento.preferences.v1",
       JSON.stringify({ theme: "system", selectedState: "SP", recentServices: [] })
@@ -55,9 +93,8 @@ describe("HomePage", () => {
     window.history.pushState({}, "", "/");
 
     render(<App />);
-    await userEvent.type(screen.getByRole("searchbox", { name: "Pesquisar" }), "senha");
 
-    expect(await screen.findByText("Reset de senha para BI")).toBeInTheDocument();
-    expect(screen.getByText("Cadastro de usuários")).toBeInTheDocument();
+    expect(screen.queryByRole("searchbox", { name: "Pesquisar" })).not.toBeInTheDocument();
+    expect(screen.getByText("SMS-SP")).toBeInTheDocument();
   });
 });

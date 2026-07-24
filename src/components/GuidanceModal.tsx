@@ -1,4 +1,4 @@
-import { CheckCircle2, ExternalLink } from "lucide-react";
+import { CheckCircle2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -9,6 +9,7 @@ import {
   DialogTitle
 } from "@/components/ui/dialog";
 import type { Contract, Service } from "@/types/contracts";
+import { navigateInCurrentTab } from "@/utils/navigation";
 
 interface GuidanceModalProps {
   contract?: Contract;
@@ -27,7 +28,7 @@ export const GuidanceModal = ({ contract, service, open, onOpenChange, onContinu
     }
 
     onContinue(contract.id, service.id);
-    window.open(service.url, "_blank", "noopener,noreferrer");
+    navigateInCurrentTab(service.url);
     onOpenChange(false);
   };
 
@@ -52,10 +53,7 @@ export const GuidanceModal = ({ contract, service, open, onOpenChange, onContinu
           <Button variant="outline" onClick={() => onOpenChange(false)}>
             Voltar
           </Button>
-          <Button onClick={handleContinue}>
-            <ExternalLink data-icon="inline-start" aria-hidden="true" />
-            Continuar para o Jira
-          </Button>
+          <Button onClick={handleContinue}>Continuar</Button>
         </DialogFooter>
       </DialogContent>
     </Dialog>

@@ -10,6 +10,18 @@ const defaultPreferences: LocalPreferences = {
 
 const isBrazilianState = (value: unknown): value is BrazilianState => value === "SP" || value === "MA" || value === "MT";
 
+const readLastContractByState = (value: unknown): Partial<Record<BrazilianState, string>> | undefined => {
+  if (!value || typeof value !== "object") {
+    return undefined;
+  }
+
+  const entries = Object.entries(value).filter(
+    (entry): entry is [BrazilianState, string] => isBrazilianState(entry[0]) && typeof entry[1] === "string"
+  );
+
+  return entries.length > 0 ? Object.fromEntries(entries) : undefined;
+};
+
 export const readPreferences = (storage: Storage = window.localStorage): LocalPreferences => {
   try {
     const raw = storage.getItem(STORAGE_KEY);
@@ -25,6 +37,7 @@ export const readPreferences = (storage: Storage = window.localStorage): LocalPr
       theme,
       selectedState: isBrazilianState(parsed.selectedState) ? parsed.selectedState : undefined,
       lastContractId: typeof parsed.lastContractId === "string" ? parsed.lastContractId : undefined,
+      lastContractByState: readLastContractByState(parsed.lastContractByState),
       recentServices: Array.isArray(parsed.recentServices) ? parsed.recentServices.slice(0, RECENT_LIMIT) : []
     };
   } catch {
@@ -44,8 +57,15 @@ export const writePreferences = (
 export const setThemePreference = (theme: ThemePreference, storage?: Storage): LocalPreferences =>
   writePreferences((current) => ({ ...current, theme }), storage);
 
-export const setLastContract = (contractId: string, storage?: Storage): LocalPreferences =>
-  writePreferences((current) => ({ ...current, lastContractId: contractId }), storage);
+export const setLastContract = (contractId: string, state?: BrazilianState, storage?: Storage): LocalPreferences =>
+  writePreferences(
+    (current) => ({
+      ...current,
+      lastContractId: contractId,
+      lastContractByState: state ? { ...current.lastContractByState, [state]: contractId } : current.lastContractByState
+    }),
+    storage
+  );
 
 export const setSelectedState = (selectedState: BrazilianState, storage?: Storage): LocalPreferences =>
   writePreferences((current) => ({ ...current, selectedState }), storage);

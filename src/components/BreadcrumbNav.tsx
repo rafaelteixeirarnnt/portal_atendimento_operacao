@@ -9,7 +9,7 @@ export const BreadcrumbNav = ({ current }: BreadcrumbNavProps) => (
   <Breadcrumb>
     <BreadcrumbList>
       <BreadcrumbItem>
-        <Link className="rounded-sm hover:text-primary" to="/">
+        <Link className="rounded-sm hover:text-primary" to="/?selecionarCliente=1">
           Início
         </Link>
       </BreadcrumbItem>

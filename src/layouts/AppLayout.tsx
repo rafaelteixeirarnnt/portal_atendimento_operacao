@@ -13,9 +13,9 @@ export const AppLayout = () => {
   const shouldShowStateSelector = isStateSelectorOpen || !selectedState;
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="flex min-h-screen flex-col bg-background">
       <Header preferences={preferences} onOpenStateSelector={() => setIsStateSelectorOpen(true)} />
-      <main className="container py-10 md:py-14">
+      <main className="container flex-1 py-10 md:py-14">
         <Outlet context={preferences} />
       </main>
       <Footer />

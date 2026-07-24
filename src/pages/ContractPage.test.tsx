@@ -2,6 +2,7 @@ import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import { App } from "@/App";
+import * as navigation from "@/utils/navigation";
 
 describe("ContractPage", () => {
   beforeEach(() => {
@@ -11,33 +12,45 @@ describe("ContractPage", () => {
     );
   });
 
-  it("renders contract categories and services", () => {
+  it("renders contract categories and services", async () => {
     window.history.pushState({}, "", "/contracts/sms-sp");
 
     render(<App />);
 
+    expect(screen.getByRole("img", { name: "Prefeitura de São Paulo" })).toHaveAttribute("src", "/contracts/sms-sp-horizontal.png");
     expect(screen.getByRole("heading", { name: "SMS-SP" })).toBeInTheDocument();
     expect(screen.getAllByText("Business Intelligence").length).toBeGreaterThan(0);
+    await userEvent.click(screen.getByRole("button", { name: /Business Intelligence/ }));
     expect(screen.getByText("Solicitar acesso ao BI")).toBeInTheDocument();
+    expect(screen.queryByText("Abrir chamado")).not.toBeInTheDocument();
+  });
+
+  it("uses the color Einstein logo on the contract detail header", () => {
+    window.history.pushState({}, "", "/contracts/einstein-ses-sp");
+
+    render(<App />);
+
+    expect(screen.getByRole("img", { name: "Einstein Hospital Israelita" })).toHaveAttribute(
+      "src",
+      "/contracts/einstein-horizontal-color.png"
+    );
   });
 
   it("opens guidance before redirecting incident services", async () => {
     window.history.pushState({}, "", "/contracts/sms-sp");
-    const openSpy = vi.spyOn(window, "open").mockImplementation(() => null);
+    const navigateSpy = vi.spyOn(navigation, "navigateInCurrentTab").mockImplementation(() => undefined);
 
     render(<App />);
+    await userEvent.click(screen.getByRole("button", { name: /Atendimento Geral/ }));
     await userEvent.click(screen.getByRole("button", { name: "Abrir chamado: Incidente" }));
 
     expect(screen.getByRole("dialog")).toHaveTextContent("Antes de continuar confirme");
+    expect(screen.queryByRole("button", { name: "Continuar para o Jira" })).not.toBeInTheDocument();
 
-    await userEvent.click(screen.getByRole("button", { name: "Continuar para o Jira" }));
-    expect(openSpy).toHaveBeenCalledWith(
-      "https://libertyti.atlassian.net/servicedesk/customer/portal/219/create/1496",
-      "_blank",
-      "noopener,noreferrer"
-    );
+    await userEvent.click(screen.getByRole("button", { name: "Continuar" }));
+    expect(navigateSpy).toHaveBeenCalledWith("https://libertyti.atlassian.net/servicedesk/customer/portal/219/create/1496");
 
-    openSpy.mockRestore();
+    navigateSpy.mockRestore();
   });
 
   it("shows an empty state for missing contracts", () => {

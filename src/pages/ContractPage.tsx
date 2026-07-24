@@ -37,6 +37,7 @@ const ContractDetail = ({ contract, preferences }: ContractDetailProps) => {
   const Icon = getIcon(contract.icon);
   const search = useServiceSearch(contract);
   const { rememberContract, rememberService } = preferences;
+  const isSesMa = contract.id === "einstein-ses-ma";
 
   useEffect(() => {
     rememberContract(contract.id);
@@ -50,15 +51,24 @@ const ContractDetail = ({ contract, preferences }: ContractDetailProps) => {
         <div className="flex flex-col gap-5 md:flex-row md:items-center">
           <span
             className={cn(
-              "inline-flex shrink-0 items-center justify-center rounded-lg bg-accent text-primary",
-              contract.brandLogo ? "h-16 w-32 border border-border bg-white px-3 shadow-sm" : "size-16"
+              "relative inline-flex shrink-0 items-center justify-center overflow-hidden rounded-lg bg-accent text-primary",
+              contract.brandLogo ? "h-16 w-32 border border-border bg-white px-3 shadow-sm" : "size-16",
+              isSesMa && "border-[#BDEB8D]/60 bg-white"
             )}
           >
+            {isSesMa ? (
+              <>
+                <span aria-hidden="true" className="pointer-events-none absolute -left-7 -top-7 size-16 rounded-full bg-[#F5A38A] opacity-35 blur-2xl" />
+                <span aria-hidden="true" className="pointer-events-none absolute -bottom-7 -left-7 size-16 rounded-full bg-[#A9D4FF] opacity-30 blur-2xl" />
+                <span aria-hidden="true" className="pointer-events-none absolute -right-7 -top-7 size-16 rounded-full bg-[#F7D54A] opacity-35 blur-2xl" />
+                <span aria-hidden="true" className="pointer-events-none absolute -bottom-7 -right-7 size-16 rounded-full bg-[#BDEB8D] opacity-30 blur-2xl" />
+              </>
+            ) : null}
             {contract.brandLogo ? (
               <img
                 src={contract.brandLogo.srcOnLight ?? contract.brandLogo.src}
                 alt={contract.brandLogo.alt}
-                className="max-h-12 w-full object-contain"
+                className="relative z-10 max-h-12 w-full object-contain"
               />
             ) : (
               <Icon aria-hidden="true" />

@@ -25,12 +25,13 @@ describe("preferences storage", () => {
     const storage = createMemoryStorage();
 
     setThemePreference("dark", storage);
-    setLastContract("sms-sp", storage);
+    setLastContract("sms-sp", "SP", storage);
     addRecentService({ contractId: "sms-sp", serviceId: "incident" }, storage);
 
     const preferences = readPreferences(storage);
     expect(preferences.theme).toBe("dark");
     expect(preferences.lastContractId).toBe("sms-sp");
+    expect(preferences.lastContractByState?.SP).toBe("sms-sp");
     expect(preferences.recentServices[0]).toMatchObject({ contractId: "sms-sp", serviceId: "incident" });
   });
 

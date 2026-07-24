@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import { Badge } from "@/components/ui/badge";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { EmptyState } from "@/components/EmptyState";
@@ -20,22 +21,31 @@ export const CategoryAccordion = ({
   onRequiresGuidance,
   onOpenService
 }: CategoryAccordionProps) => {
+  const [openCategories, setOpenCategories] = useState<string[]>([]);
   const visibleByCategory = new Map<string, ServiceSearchResult[]>();
   visibleResults.forEach((result) => {
     const current = visibleByCategory.get(result.category.id) ?? [];
     visibleByCategory.set(result.category.id, [...current, result]);
   });
 
+  useEffect(() => {
+    setOpenCategories((current) => {
+      const categoryIds = categories.map((category) => category.id);
+      const knownCategoryIds = new Set(categoryIds);
+      return current.filter((categoryId) => knownCategoryIds.has(categoryId));
+    });
+  }, [categories]);
+
   return (
-    <Accordion type="multiple" defaultValue={categories.map((category) => category.id)} className="flex flex-col gap-3">
+    <Accordion type="multiple" value={openCategories} onValueChange={setOpenCategories} className="flex flex-col gap-10">
       {categories.map((category) => {
         const Icon = getIcon(category.icon);
         const services = visibleByCategory.get(category.id) ?? [];
 
         return (
-          <AccordionItem key={category.id} value={category.id} className="rounded-lg border bg-card px-5">
-            <AccordionTrigger>
-              <span className="flex min-w-0 items-center gap-3 text-left">
+          <AccordionItem key={category.id} value={category.id} className="border-0">
+            <AccordionTrigger className="py-0 text-left hover:text-foreground hover:no-underline">
+              <span className="flex min-w-0 flex-1 items-center gap-3">
                 <span className="inline-flex size-10 shrink-0 items-center justify-center rounded-md bg-muted text-primary">
                   <Icon aria-hidden="true" />
                 </span>
@@ -48,7 +58,8 @@ export const CategoryAccordion = ({
                 {services.length} serviços
               </Badge>
             </AccordionTrigger>
-            <AccordionContent>
+
+            <AccordionContent className="pb-0 pt-4">
               {services.length > 0 ? (
                 <div className="grid gap-4 md:grid-cols-2">
                   {services.map(({ service }) => (
