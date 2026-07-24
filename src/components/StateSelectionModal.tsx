@@ -41,7 +41,7 @@ export const StateSelectionModal = ({
             onClick={() => onSelectState(option.id)}
           >
             <span className="flex items-center gap-2 text-base font-semibold">
-              <StateShapeIcon state={option.id} className="size-7 shrink-0" aria-hidden="true" />
+              <StateShapeIcon state={option.id} className="size-8 shrink-0 text-[#1f2933]" aria-hidden="true" />
               {option.name}
             </span>
           </Button>
