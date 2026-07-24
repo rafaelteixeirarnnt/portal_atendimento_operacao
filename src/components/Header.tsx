@@ -1,4 +1,3 @@
-import { Building2 } from "lucide-react";
 import { ThemeToggle } from "@/components/ThemeToggle";
 import type { useLocalPreferences } from "@/hooks/useLocalPreferences";
 
@@ -7,15 +6,23 @@ interface HeaderProps {
 }
 
 export const Header = ({ preferences }: HeaderProps) => (
-  <header className="border-b bg-card/80 backdrop-blur">
-    <div className="container flex h-16 items-center justify-between gap-4">
-      <a href="/" className="inline-flex items-center gap-3 rounded-md font-semibold text-foreground" aria-label="Portal de Atendimento">
-        <span className="inline-flex size-9 items-center justify-center rounded-md bg-primary text-primary-foreground">
-          <Building2 aria-hidden="true" />
-        </span>
-        <span className="text-lg">Liberty TI</span>
+  <header className="border-b border-emerald-950/20 bg-[#073f30] text-white shadow-sm">
+    <div className="container grid min-h-20 grid-cols-[1fr_auto] items-center gap-4 py-3 md:grid-cols-3">
+      <div className="hidden md:block" aria-hidden="true" />
+      <a
+        href="/"
+        className="inline-flex w-fit items-center justify-center rounded-md bg-white px-4 py-2 shadow-sm transition-transform hover:-translate-y-0.5 md:justify-self-center"
+        aria-label="Liberty health - Portal de Atendimento"
+      >
+        <img
+          src="/brand/logo-horizontal.png"
+          alt="Liberty health"
+          className="h-8 w-auto max-w-[190px] object-contain sm:h-9 sm:max-w-[230px]"
+        />
       </a>
-      <ThemeToggle theme={preferences.preferences.theme} onThemeChange={preferences.updateTheme} />
+      <div className="justify-self-end">
+        <ThemeToggle theme={preferences.preferences.theme} onThemeChange={preferences.updateTheme} />
+      </div>
     </div>
   </header>
 );

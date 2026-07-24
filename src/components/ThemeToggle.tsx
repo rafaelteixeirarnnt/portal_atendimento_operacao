@@ -26,9 +26,9 @@ export const ThemeToggle = ({ theme, onThemeChange }: ThemeToggleProps) => {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button variant="outline" className="min-w-40 justify-between" aria-label="Alterar tema">
+        <Button variant="outline" className="px-3 sm:min-w-40 sm:justify-between" aria-label="Alterar tema">
           <Icon data-icon="inline-start" aria-hidden="true" />
-          {themeLabels[theme]}
+          <span className="hidden sm:inline">{themeLabels[theme]}</span>
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end">
