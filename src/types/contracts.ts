@@ -1,6 +1,7 @@
 import type { LucideIcon } from "lucide-react";
 
 export type ThemePreference = "light" | "dark" | "system";
+export type BrazilianState = "SP" | "MA" | "MT";
 
 export interface GuidanceItem {
   id: string;
@@ -33,6 +34,7 @@ export interface Contract {
   description: string;
   shortDescription: string;
   icon: string;
+  state: BrazilianState;
   system?: string;
   categories: Category[];
 }
@@ -56,6 +58,7 @@ export interface RecentService {
 
 export interface LocalPreferences {
   theme: ThemePreference;
+  selectedState?: BrazilianState;
   lastContractId?: string;
   recentServices: RecentService[];
 }

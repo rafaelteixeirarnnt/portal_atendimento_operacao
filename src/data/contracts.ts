@@ -100,12 +100,13 @@ const universityService = {
   system: "Universidade Liberty"
 };
 
-const createEinsteinContract = (id: string, name: string, state: string): Contract => ({
+const createEinsteinContract = (id: string, name: string, state: Contract["state"], stateName: string): Contract => ({
   id,
   name,
   description: `Canais de atendimento do contrato ${name}.`,
-  shortDescription: `Serviços do Hospital Israelita Albert Einstein em ${state}.`,
+  shortDescription: `Serviços do Hospital Israelita Albert Einstein em ${stateName}.`,
   icon: "Landmark",
+  state,
   system: "Sustentação N2",
   categories: [
     {
@@ -126,6 +127,7 @@ export const contracts: Contract[] = [
     description: "Contrato da Secretaria Municipal de Saúde de São Paulo.",
     shortDescription: "Canais de atendimento do contrato SMS-SP.",
     icon: "Building2",
+    state: "SP",
     system: "Sustentação N2",
     categories: [
       {
@@ -186,7 +188,7 @@ export const contracts: Contract[] = [
       }
     ]
   },
-  createEinsteinContract("einstein-ses-sp", "Einstein SES-SP", "São Paulo"),
-  createEinsteinContract("einstein-ses-mt", "Einstein SES-MT", "Mato Grosso"),
-  createEinsteinContract("einstein-ses-ma", "Einstein SES-MA", "Maranhão")
+  createEinsteinContract("einstein-ses-sp", "Einstein SES-SP", "SP", "São Paulo"),
+  createEinsteinContract("einstein-ses-ma", "SES-MA", "MA", "Maranhão"),
+  createEinsteinContract("einstein-ses-mt", "Einstein SES-MT", "MT", "Mato Grosso")
 ];

@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState } from "react";
-import type { ThemePreference } from "@/types/contracts";
-import { addRecentService, readPreferences, setLastContract, setThemePreference } from "@/utils/storage";
+import type { BrazilianState, ThemePreference } from "@/types/contracts";
+import { addRecentService, readPreferences, setLastContract, setSelectedState, setThemePreference } from "@/utils/storage";
 
 const applyTheme = (theme: ThemePreference) => {
   const root = document.documentElement;
@@ -32,6 +32,10 @@ export const useLocalPreferences = () => {
     setPreferences(setThemePreference(theme));
   }, []);
 
+  const updateSelectedState = useCallback((selectedState: BrazilianState) => {
+    setPreferences(setSelectedState(selectedState));
+  }, []);
+
   const rememberContract = useCallback((contractId: string) => {
     setPreferences(setLastContract(contractId));
   }, []);
@@ -43,6 +47,7 @@ export const useLocalPreferences = () => {
   return {
     preferences,
     updateTheme,
+    updateSelectedState,
     rememberContract,
     rememberService
   };

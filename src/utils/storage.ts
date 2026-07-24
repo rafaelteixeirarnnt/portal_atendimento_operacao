@@ -1,4 +1,4 @@
-import type { LocalPreferences, RecentService, ThemePreference } from "@/types/contracts";
+import type { BrazilianState, LocalPreferences, RecentService, ThemePreference } from "@/types/contracts";
 
 const STORAGE_KEY = "liberty.portal-atendimento.preferences.v1";
 const RECENT_LIMIT = 5;
@@ -7,6 +7,8 @@ const defaultPreferences: LocalPreferences = {
   theme: "system",
   recentServices: []
 };
+
+const isBrazilianState = (value: unknown): value is BrazilianState => value === "SP" || value === "MA" || value === "MT";
 
 export const readPreferences = (storage: Storage = window.localStorage): LocalPreferences => {
   try {
@@ -21,6 +23,7 @@ export const readPreferences = (storage: Storage = window.localStorage): LocalPr
 
     return {
       theme,
+      selectedState: isBrazilianState(parsed.selectedState) ? parsed.selectedState : undefined,
       lastContractId: typeof parsed.lastContractId === "string" ? parsed.lastContractId : undefined,
       recentServices: Array.isArray(parsed.recentServices) ? parsed.recentServices.slice(0, RECENT_LIMIT) : []
     };
@@ -43,6 +46,9 @@ export const setThemePreference = (theme: ThemePreference, storage?: Storage): L
 
 export const setLastContract = (contractId: string, storage?: Storage): LocalPreferences =>
   writePreferences((current) => ({ ...current, lastContractId: contractId }), storage);
+
+export const setSelectedState = (selectedState: BrazilianState, storage?: Storage): LocalPreferences =>
+  writePreferences((current) => ({ ...current, selectedState }), storage);
 
 export const addRecentService = (
   recentService: Omit<RecentService, "usedAt">,

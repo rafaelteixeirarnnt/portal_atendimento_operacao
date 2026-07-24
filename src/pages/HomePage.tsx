@@ -9,10 +9,12 @@ import { getIcon } from "@/components/icons";
 import { contracts } from "@/data/contracts";
 import { useContractSearch } from "@/hooks/useSearch";
 import type { useLocalPreferences } from "@/hooks/useLocalPreferences";
+import { getContractsByState } from "@/utils/contracts";
 
 export const HomePage = () => {
-  const { rememberContract } = useOutletContext<ReturnType<typeof useLocalPreferences>>();
-  const { query, setQuery, results, hasQuery } = useContractSearch(contracts);
+  const { preferences, rememberContract } = useOutletContext<ReturnType<typeof useLocalPreferences>>();
+  const visibleContracts = preferences.selectedState ? getContractsByState(preferences.selectedState, contracts) : contracts;
+  const { query, setQuery, results, hasQuery } = useContractSearch(visibleContracts);
   const matchedServices = results.flatMap((result) => result.matchedServices).slice(0, 8);
 
   return (

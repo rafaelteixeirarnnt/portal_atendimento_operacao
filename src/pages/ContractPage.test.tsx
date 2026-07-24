@@ -1,9 +1,16 @@
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import { describe, expect, it, vi } from "vitest";
+import { beforeEach, describe, expect, it, vi } from "vitest";
 import { App } from "@/App";
 
 describe("ContractPage", () => {
+  beforeEach(() => {
+    localStorage.setItem(
+      "liberty.portal-atendimento.preferences.v1",
+      JSON.stringify({ theme: "system", selectedState: "SP", recentServices: [] })
+    );
+  });
+
   it("renders contract categories and services", () => {
     window.history.pushState({}, "", "/contracts/sms-sp");
 

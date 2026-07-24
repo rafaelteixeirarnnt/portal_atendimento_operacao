@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { addRecentService, readPreferences, setLastContract, setThemePreference } from "@/utils/storage";
+import { addRecentService, readPreferences, setLastContract, setSelectedState, setThemePreference } from "@/utils/storage";
 
 const createMemoryStorage = (): Storage => {
   const values = new Map<string, string>();
@@ -32,5 +32,19 @@ describe("preferences storage", () => {
     expect(preferences.theme).toBe("dark");
     expect(preferences.lastContractId).toBe("sms-sp");
     expect(preferences.recentServices[0]).toMatchObject({ contractId: "sms-sp", serviceId: "incident" });
+  });
+
+  it("persists selected state and ignores invalid saved state values", () => {
+    const storage = createMemoryStorage();
+
+    setSelectedState("SP", storage);
+    expect(readPreferences(storage).selectedState).toBe("SP");
+
+    storage.setItem(
+      "liberty.portal-atendimento.preferences.v1",
+      JSON.stringify({ theme: "system", selectedState: "RJ", recentServices: [] })
+    );
+
+    expect(readPreferences(storage).selectedState).toBeUndefined();
   });
 });
